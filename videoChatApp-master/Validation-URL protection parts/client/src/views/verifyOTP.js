@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default class VerifyOTP extends Component {
-  
+
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +18,6 @@ export default class VerifyOTP extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.reSendOTPSubmit = this.reSendOTPSubmit.bind(this);
-   
     }
 
     handleBackBtnClick(e) { 
@@ -35,9 +34,7 @@ export default class VerifyOTP extends Component {
     const email = userData.email
 
     this.setState({ email: email, userId: userId ,otpData:otpData, user:userData}); 
-
   }
-
 
   handleSubmit(e) {
     const toastOptions = {
@@ -50,7 +47,7 @@ export default class VerifyOTP extends Component {
     e.preventDefault();
     const { userId, otp } = this.state;
     console.log(userId, otp);
-    fetch("http://localhost:3000/user/verifyOTP", {
+    fetch("http://localhost:8000/user/verifyOTP", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -69,16 +66,16 @@ export default class VerifyOTP extends Component {
     
         console.log(data, "verifyOTP");
         if (data.status === "VERIFIED") {
-            //alert("");
 
-            toast.success("Email Verification Successful", toastOptions);
+            // alert("Verification Successful");
+           // window.location.href = "./landing";
 
-           // window.location.href = "./userDetails";
+           toast.success("Email Verification Successful", toastOptions);
            window.setTimeout(function() {
-            window.location.href = './userDetails';
+            window.location.href = './landing';
         }, 3000);
 
-        }else {
+        }else{
             toast.error("Email Verification Unsuccessful", toastOptions);
         }
       });
@@ -97,7 +94,7 @@ export default class VerifyOTP extends Component {
     e.preventDefault();
     const {userId, email} = this.state;
     console.log(userId, email);
-    fetch("http://localhost:3000/user/resendOTPVerificationCode", {
+    fetch("http://localhost:8000/user/resendOTPVerificationCode", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -116,28 +113,29 @@ export default class VerifyOTP extends Component {
 
         if (data.status === "ok") {
 
-          //alert("re-send OTP successful");
           toast.success("Re-send OTP successful!", toastOptions);
           window.localStorage.setItem("token", data.act);
 
-          //window.location.href = "./VerifyOTP";
-          window.setTimeout(function() {
+         window.setTimeout(function() {
             window.location.href = './VerifyOTP';
         }, 3000);
+
         }
       });
   }
   
   render() {
-    
     return (
       <>
+      <div className="App">
+      <div className="auth-wrapper">
+        <div className="auth-inner">
       <div>
-         <button id='backbtn' variant="primary" type="submit"
+        
+      <button id='backbtn' variant="primary" type="submit"
      onClick={this.handleBackBtnClick}>
             Back
        </button>
-
       <form onSubmit={this.handleSubmit}>
     
     <meta charSet="UTF-8"/>
@@ -182,10 +180,14 @@ export default class VerifyOTP extends Component {
           
         </form> 
          
+         
+    
+    </div>
+    </div>
+    </div>
     </div>
     <ToastContainer/>
     </>
-      
     );
 }
 }

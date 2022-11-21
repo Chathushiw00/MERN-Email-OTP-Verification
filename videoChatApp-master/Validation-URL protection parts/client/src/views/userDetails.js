@@ -5,10 +5,8 @@ export default class UserDetails extends Component {
     super(props);
     this.state = {
       userData: "",
-      
     };
   }
-
 
   handleLogoutBtnClick(e) { 
     console.log('Logoutbtn clicked');
@@ -24,8 +22,7 @@ export default class UserDetails extends Component {
     } //url
    
 
-    fetch("http://localhost:3000/user/userData", {
-
+    fetch("http://localhost:8000/user/userData", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -44,24 +41,21 @@ export default class UserDetails extends Component {
         this.setState({ userData: data.data });
 
         window.sessionStorage.setItem("chat-app-user", JSON.stringify(data.data._id));  //url
-       
-      
       });
   }
   render() {
     return (
-
       <div>
         Name<h1>{this.state.userData.fname}</h1>
         Email <h1>{this.state.userData.email}</h1>
-        <div>
         
-    <button id='backbtn' variant="primary" type="submit"
-        onClick={this.handleLogoutBtnClick}>
+      <div>
+         <button id='backbtn' variant="primary" type="submit"
+          onClick={this.handleLogoutBtnClick}>
             Logout
-       </button>
+        </button>
       </div>
-
+      
       </div>
     );
   }

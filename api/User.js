@@ -26,12 +26,12 @@ const UserOTPVerification = require("../models/UserOTPVerification");
 
 //nodemailer transporter
 // AUTH_EMAIL = chathushiw00@gmail.com
-// AUTH_PASSWORD = 
+// AUTH_PASSWORD = qtmnylkoiojfzsdr
 let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: "chathushiw00@gmail.com",
-        pass: "enter user app pw",
+        pass: "qtmnylkoiojfzsdr",
         //your password and email
     }
 });

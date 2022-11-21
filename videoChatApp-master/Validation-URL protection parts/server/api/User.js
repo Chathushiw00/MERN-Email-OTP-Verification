@@ -49,7 +49,7 @@ router.post("/register", (req, res) => {
         //Checking if user already exist
         User.find({email}).then(result => {
             if(result.length){
-                return res.json({ error: "User Exists" })
+                return res.send({ status: "User exists" })
             }else{
                //Try to create a new user
                 
@@ -75,7 +75,6 @@ router.post("/register", (req, res) => {
 
                })
                .catch( e => {
-                    return res.json({ error: "User Exists" })
                     res.send({ status: "error" })
                })
 
@@ -139,25 +138,21 @@ router.post("/login-user", (req, res) => {
 });
 
 
-router.post("/userData", async (req, res) => {
-    const { token } = req.body;
-  
-    try {
+ router.post("/userData", async (req, res) => {
+ const { token } = req.body;
+ try {
+   const user = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-   
-      const useremail = user.email;
-      User.findOne({ email: useremail })
-        .then((data) => {
-          res.send({ status: "ok", data: data });
-        })
-        .catch((error) => {
-          res.send({ status: "error", data: error });
-        });
-        
-    } catch (error) {}
-   });
-   
+   const useremail = user.email;
+   User.findOne({ email: useremail })
+     .then((data) => {
+       res.send({ status: "ok", data: data });
+     })
+     .catch((error) => {
+       res.send({ status: "error", data: error });
+     });
+ } catch (error) {}
+});
 
 
 //verify otp email
@@ -219,8 +214,6 @@ router.post("/verifyOTP", async (req, res) => {
         });
     }
 });
-
-
 
 //resend verification
 router.post("/resendOTPVerificationCode", async (req, res) => {
