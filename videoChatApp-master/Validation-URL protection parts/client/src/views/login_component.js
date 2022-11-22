@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,8 +11,14 @@ export default class Login extends Component {
       password: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
+  componentDidMount(){
+   if (localStorage.getItem("chat-app-user")) {
+      window.location.href = "/landing";
+    } //url
+  }
 
   handleSubmit(e) {
     const toastOptions = {
@@ -22,9 +28,10 @@ export default class Login extends Component {
       draggable: true,
       theme: "dark",
     };
+
     e.preventDefault();
     const { email, password } = this.state;
-    
+
     fetch("http://localhost:8000/user/login-user", {
       method: "POST",
       crossDomain: true,
@@ -38,6 +45,7 @@ export default class Login extends Component {
         password,
       }),
     })
+ 
       .then((res) => res.json())
       .then((data) => {
 
@@ -64,7 +72,8 @@ export default class Login extends Component {
           toast.success("Login Successful!", toastOptions);
                 
           window.sessionStorage.setItem("token", data.act);
-          window.sessionStorage.setItem("chat-app-user", JSON.stringify(data.act)); //url
+          window.localStorage.setItem("chat-app-user", JSON.stringify(data.act)); //url
+
 
           //window.location.href = "/landing";
           window.setTimeout(function() {
@@ -82,6 +91,7 @@ export default class Login extends Component {
       }
     });
   }
+  
 
 
   render() {

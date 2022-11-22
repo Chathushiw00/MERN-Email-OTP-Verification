@@ -4,11 +4,20 @@ import { createRoomAPI } from "../../api/room";
 
 const Landing = ({ currentUserId }) => {
   
-  if ((sessionStorage.length == "")) {
+  if ((localStorage.length == "")) {
     window.location.href = "./sign-in";
   } //url
   
     const navigate = useNavigate()
+
+
+  const handleLogoutBtnClick = useCallback(async () => {
+    console.log('Logoutbtn clicked');
+    window.location.href = "./sign-in";
+    window.sessionStorage.clear();
+    window.localStorage.clear();
+  });
+
     const createRoom = useCallback(async () => {
         try {
             const roomInformation = await createRoomAPI(currentUserId);
@@ -26,7 +35,13 @@ const Landing = ({ currentUserId }) => {
             <strong className="has-text-white">Hi Welcome</strong>
           </p>
           <button onClick={createRoom} className="button is-success">Create a room</button>
-        </div>
+        </div><br></br>
+
+        <div>
+         <button onClick={handleLogoutBtnClick} id='backbtn' variant="primary" type="submit">
+            Logout
+        </button>
+      </div>
       </div>
     </div>);
 };

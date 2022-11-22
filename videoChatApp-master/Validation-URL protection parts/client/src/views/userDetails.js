@@ -20,7 +20,6 @@ export default class UserDetails extends Component {
     if ((sessionStorage.length == "")) {
       window.location.href = "./sign-in";
     } //url
-   
 
     fetch("http://localhost:8000/user/userData", {
       method: "POST",
