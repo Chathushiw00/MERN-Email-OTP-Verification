@@ -17,9 +17,10 @@ export default class UserDetails extends Component {
 
   componentDidMount() {
 
-    if ((sessionStorage.length == "")) {
+    if ((sessionStorage.length === "")) {
       window.location.href = "./sign-in";
     } //url
+
 
     fetch("http://localhost:8000/user/userData", {
       method: "POST",
@@ -47,7 +48,7 @@ export default class UserDetails extends Component {
       <div>
         Name<h1>{this.state.userData.fname}</h1>
         Email <h1>{this.state.userData.email}</h1>
-        
+       
       <div>
          <button id='backbtn' variant="primary" type="submit"
           onClick={this.handleLogoutBtnClick}>

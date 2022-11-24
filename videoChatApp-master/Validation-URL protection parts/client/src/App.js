@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PeerJS from 'peerjs';
 import { v4 as uuidv4 } from 'uuid';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+// import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./views/login_component";
@@ -31,7 +31,7 @@ function App() {
   }, []);
   return (
     <Router>
-      
+      <div className="App">
             <Routes>
               <Route exact path="/" element={<Login />} />
               <Route path="/sign-in" element={<Login />} />
@@ -41,6 +41,7 @@ function App() {
               <Route path="/landing" element={<Landing currentUserId={currentUserId}/>}/>
               <Route path="/rooms/:roomId" element={<Room currentUserId={currentUserId} peerInstance={peerInstance.current}/>}/>
             </Routes>
+     </div>
        
     </Router>
   );

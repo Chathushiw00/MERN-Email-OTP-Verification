@@ -13,8 +13,11 @@ const RemoteUserVideo = ({ remoteStream }) => {
             });
         }
     }, [remoteStream]);
-    return (<div className="column is-narrow">
-            <video ref={userVideoRef}/>
-        </div>);
+    return (
+    <div className="v-container">
+        <div className="video-container">
+            <video ref={userVideoRef} style={{width:"300px"}} />
+        </div>
+    </div>);
 };
 export default RemoteUserVideo;
